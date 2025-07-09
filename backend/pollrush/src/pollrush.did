@@ -1,0 +1,37 @@
+type Poll = record {
+    id: nat64;
+    title: text;
+    description: text;
+    options: vec text;
+    creator: principal;
+    created_at: nat64;
+    deadline: opt nat64;
+    is_active: bool;
+};
+
+type Vote = record {
+    poll_id: nat64;
+    voter: principal;
+    option_index: nat32;
+    voted_at: nat64;
+};
+
+type CreatePollArgs = record {
+    title: text;
+    description: text;
+    options: vec text;
+    deadline: opt nat64;
+};
+
+type VoteArgs = record {
+    poll_id: nat64;
+    option_index: nat32;
+};
+
+service : {
+    "get_poll": (nat64) -> (opt Poll) query;
+    "get_polls": () -> (vec Poll) query;
+    "create_poll": (CreatePollArgs) -> (variant { Ok: nat64; Err: text });
+    "vote": (VoteArgs) -> (variant { Ok; Err: text });
+    "get_votes": (nat64) -> (vec Vote) query;
+} 

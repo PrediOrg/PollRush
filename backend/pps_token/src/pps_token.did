@@ -1,0 +1,10 @@
+type TransferArgs = record {
+    to: principal;
+    amount: nat64;
+};
+
+service : {
+    "balance_of": (principal) -> (nat64) query;
+    "transfer": (TransferArgs) -> (variant { Ok; Err: text });
+    "mint": (principal, nat64) -> (variant { Ok; Err: text });
+} 
