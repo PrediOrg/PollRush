@@ -29,7 +29,7 @@ const Footer: React.FC = () => {
             href="#"
             target="_blank"
             rel="noopener noreferrer"
-            color="primary"
+            sx={{ color: '#FE5056' }}
           >
             <TwitterIcon />
           </IconButton>
@@ -38,7 +38,7 @@ const Footer: React.FC = () => {
             href="#"
             target="_blank"
             rel="noopener noreferrer"
-            color="primary"
+            sx={{ color: '#FE5056' }}
           >
             <TelegramIcon />
           </IconButton>
@@ -47,7 +47,7 @@ const Footer: React.FC = () => {
             href="#"
             target="_blank"
             rel="noopener noreferrer"
-            color="primary"
+            sx={{ color: '#FE5056' }}
           >
             <GitHubIcon />
           </IconButton>
@@ -57,15 +57,15 @@ const Footer: React.FC = () => {
           color="text.secondary"
           align="center"
           sx={{
-            fontFamily: '"Press Start 2P", monospace',
-            fontSize: '0.7rem',
+            fontFamily: 'Basel, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+            fontSize: '0.8rem',
           }}
         >
-          © 2025 PollRush
+          © 2025 PollRush | Powered by Predi
         </Typography>
       </Container>
     </StyledFooter>
   );
 };
 
-export default Footer; 
+export default Footer;

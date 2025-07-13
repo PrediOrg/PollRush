@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { WalletProvider, useWallet } from './contexts/WalletContext';
 import WalletSelectDialog from './components/WalletSelectDialog';
@@ -12,18 +12,7 @@ import CreatePoll from './pages/CreatePoll';
 import MyPolls from './pages/MyPolls';
 import MyAttendance from './pages/MyAttendance';
 import PollDetail from './pages/PollDetail';
-
-const theme = createTheme({
-  palette: {
-    mode: 'light',
-    primary: {
-      main: '#1976d2',
-    },
-    secondary: {
-      main: '#dc004e',
-    },
-  },
-});
+import theme from './theme';
 
 const AppContent: React.FC = () => {
   const { isConnected, principal, accountId, connect, disconnect } = useWallet();
@@ -51,15 +40,19 @@ const AppContent: React.FC = () => {
 
   return (
     <Router>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <WalletProvider>
-          <Navbar
-            isConnected={isConnected}
-            principal={principal ? formatPrincipal(principal) : null}
-            onConnect={handleConnect}
-            onWalletClick={() => setWalletInfoOpen(true)}
-          />
+      <div style={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        minHeight: '100vh',
+        background: '#FFFFFF'
+      }}>
+        <Navbar
+          isConnected={isConnected}
+          principal={principal ? formatPrincipal(principal) : null}
+          onConnect={handleConnect}
+          onWalletClick={() => setWalletInfoOpen(true)}
+        />
+        <main style={{ flex: 1 }}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/create" element={<CreatePoll />} />
@@ -67,9 +60,9 @@ const AppContent: React.FC = () => {
             <Route path="/my-attendance" element={<MyAttendance />} />
             <Route path="/poll/:id" element={<PollDetail />} />
           </Routes>
-          <Footer />
-        </WalletProvider>
-      </ThemeProvider>
+        </main>
+        <Footer />
+      </div>
 
       <WalletSelectDialog
         open={walletSelectOpen}
@@ -99,4 +92,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App; 
+export default App;

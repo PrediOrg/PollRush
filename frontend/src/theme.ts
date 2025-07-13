@@ -48,36 +48,31 @@ let theme = createTheme({
       },
     },
     button: {
+      fontWeight: 700,
       textTransform: 'none',
-      fontWeight: 500,
     },
+    navLink: {
+      fontWeight: 700,
+    }
   },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 0,
-          padding: '12px 24px',
-          fontFamily: 'Basel, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-          fontSize: '0.8rem',
-          '@media (min-width:600px)': {
-            fontSize: '0.9rem',
-          },
-          transition: 'all 0.3s ease',
-          '&:hover': {
-            transform: 'translateY(-2px)',
-          },
+          borderRadius: 8,
+          padding: '10px 20px',
+          fontWeight: 700,
         },
-        contained: {
+        containedPrimary: {
           background: 'linear-gradient(90deg, #FE9e59 0%, #FE5056 100%)',
           '&:hover': {
-            background: 'linear-gradient(90deg, #FE5056 0%, #FE9e59 100%)',
+            background: 'linear-gradient(90deg, #FE8e49 0%, #FE4046 100%)',
           },
         },
-        outlined: {
-          border: '2px solid #FAFAFA',
+        containedSecondary: {
+          backgroundColor: '#8b02ca',
           '&:hover': {
-            border: '2px solid #FE5056',
+            backgroundColor: '#7a02b3',
           },
         },
       },
@@ -85,27 +80,14 @@ let theme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 0,
-          border: '2px solid #FAFAFA',
-          transition: 'all 0.3s ease',
+          borderRadius: 12,
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
+          overflow: 'hidden',
+          border: '1px solid #FAFAFA',
+          transition: 'transform 0.3s ease, box-shadow 0.3s ease',
           '&:hover': {
-            transform: 'translateY(-4px)',
-            boxShadow: '0 8px 16px rgba(0,0,0,0.1)',
-          },
-        },
-      },
-    },
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          '& .MuiOutlinedInput-root': {
-            borderRadius: 0,
-            '& fieldset': {
-              borderColor: '#FAFAFA',
-            },
-            '&:hover fieldset': {
-              borderColor: '#FE5056',
-            },
+            transform: 'translateY(-5px)',
+            boxShadow: '0 12px 20px rgba(0, 0, 0, 0.1)',
           },
         },
       },
@@ -122,7 +104,7 @@ let theme = createTheme({
   },
 });
 
-// Apply responsive font sizes
+// 确保字体在不同设备上都能正确缩放
 theme = responsiveFontSizes(theme);
 
-export { theme }; 
+export default theme;
