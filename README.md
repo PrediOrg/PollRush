@@ -2,6 +2,8 @@
 
 A decentralized polling platform with full-chain support on the Internet Computer (IC) blockchain.
 
+frontend : https://k6rio-pyaaa-aaaai-atk2q-cai.icp0.io/
+
 ## Overview
 
 PollRush is a modern, decentralized voting platform that enables users to create, participate in, and manage polls with blockchain transparency and security. Built on the Internet Computer Protocol (ICP), it provides a seamless Web3 experience with traditional web usability.
