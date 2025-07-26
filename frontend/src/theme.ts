@@ -1,5 +1,8 @@
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
+// 移除这行 - 类型扩展会自动生效
+// import './types/theme';
+
 let theme = createTheme({
   palette: {
     primary: {

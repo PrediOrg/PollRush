@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { WalletProvider, useWallet } from './contexts/WalletContext';
@@ -39,30 +39,28 @@ const AppContent: React.FC = () => {
   };
 
   return (
-    <Router>
-      <div style={{ 
-        display: 'flex', 
-        flexDirection: 'column', 
-        minHeight: '100vh',
-        background: '#FFFFFF'
-      }}>
-        <Navbar
-          isConnected={isConnected}
-          principal={principal ? formatPrincipal(principal) : null}
-          onConnect={handleConnect}
-          onWalletClick={() => setWalletInfoOpen(true)}
-        />
-        <main style={{ flex: 1 }}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/create" element={<CreatePoll />} />
-            <Route path="/my-polls" element={<MyPolls />} />
-            <Route path="/my-attendance" element={<MyAttendance />} />
-            <Route path="/poll/:id" element={<PollDetail />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
+    <div style={{ 
+      display: 'flex', 
+      flexDirection: 'column', 
+      minHeight: '100vh',
+      background: '#FFFFFF'
+    }}>
+      <Navbar
+        isConnected={isConnected}
+        principal={principal ? formatPrincipal(principal) : null}
+        onConnect={handleConnect}
+        onWalletClick={() => setWalletInfoOpen(true)}
+      />
+      <main style={{ flex: 1 }}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/create" element={<CreatePoll />} />
+          <Route path="/my-polls" element={<MyPolls />} />
+          <Route path="/my-attendance" element={<MyAttendance />} />
+          <Route path="/poll/:id" element={<PollDetail />} />
+        </Routes>
+      </main>
+      <Footer />
 
       <WalletSelectDialog
         open={walletSelectOpen}
@@ -77,7 +75,7 @@ const AppContent: React.FC = () => {
         principalId={principal || ''}
         accountId={accountId || ''}
       />
-    </Router>
+    </div>
   );
 };
 

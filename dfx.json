@@ -1,19 +1,8 @@
 {
   "canisters": {
-    "pollrush_backend": {
-      "type": "rust",
-      "package": "pollrush",
-      "candid": "backend/pollrush/pollrush.did"
-    },
     "pollrush_frontend": {
       "type": "assets",
-      "source": ["frontend/dist"],
-      "dependencies": ["pollrush_backend"]
-    }
-  },
-  "defaults": {
-    "build": {
-      "packtool": "cargo build --target wasm32-unknown-unknown --release -p pollrush --offline"
+      "source": ["frontend/dist"]
     }
   },
   "networks": {
@@ -23,10 +12,6 @@
     },
     "ic": {
       "providers": ["https://ic0.app"],
-      "type": "persistent"
-    },
-    "testnet": {
-      "providers": ["https://ic0.testnet.dfinity.network"],
       "type": "persistent"
     }
   },

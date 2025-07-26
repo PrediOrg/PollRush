@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { AuthClient } from '@dfinity/auth-client';
-import { HttpAgent, Actor } from '@dfinity/agent';
-import { idlFactory as pollRushIdlFactory } from '../../../src/declarations/pollrush_backend/pollrush_backend.did';
-import { idlFactory as ppsTokenIdlFactory } from '../../../backend/pps_token/src/pps_token.did';
+import { HttpAgent } from '@dfinity/agent';
+// 移除所有后端 canister 导入
+// import { idlFactory as pollRushIdlFactory } from '../declarations/pollrush_backend/pollrush_backend.did';
 
 interface WalletContextType {
   isConnected: boolean;
@@ -110,72 +110,25 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     setIsConnected(false);
   };
 
+  // 临时的 mock 数据，用于前端展示
   const getTokens = async (): Promise<Token[]> => {
     if (!principal) {
       throw new Error('Wallet not connected');
     }
 
-    try {
-      let agent: HttpAgent;
-      if (walletType === 'ii' && authClient) {
-        const identity = authClient.getIdentity();
-        agent = new HttpAgent({ identity });
-      } else if (walletType === 'plug') {
-        agent = await window.ic.plug.createAgent();
-      } else {
-        throw new Error('No wallet connected');
-      }
-
-      if (import.meta.env.DFX_NETWORK === 'local') {
-        agent.fetchRootKey();
-      }
-
-      // Get PPS token balance
-      const ppsTokenCanisterId = import.meta.env.VITE_PPS_TOKEN_CANISTER_ID;
-      if (!ppsTokenCanisterId) {
-        throw new Error('PPS token canister ID not configured');
-      }
-
-      const ppsTokenActor = Actor.createActor(ppsTokenIdlFactory, {
-        agent,
-        canisterId: ppsTokenCanisterId,
-      });
-
-      const ppsBalance = await ppsTokenActor.icrc1_balance_of({
-        owner: principal,
-        subaccount: [],
-      });
-
-      // Get other tokens from the poll rush canister
-      const pollRushCanisterId = import.meta.env.VITE_POLLRUSH_CANISTER_ID;
-      if (!pollRushCanisterId) {
-        throw new Error('Poll rush canister ID not configured');
-      }
-
-      const pollRushActor = Actor.createActor(pollRushIdlFactory, {
-        agent,
-        canisterId: pollRushCanisterId,
-      });
-
-      const otherTokens = await pollRushActor.get_user_tokens(principal) as Token[];
-
-      // Combine PPS token with other tokens
-      return [
-        {
-          symbol: 'PPS',
-          address: ppsTokenCanisterId,
-          balance: Number(ppsBalance) / 1e8, // Convert from e8s to decimal
-        },
-        ...otherTokens.map((token: Token) => ({
-          symbol: token.symbol,
-          address: token.address,
-          balance: Number(token.balance) / 1e8,
-        })),
-      ];
-    } catch (error) {
-      console.error('Failed to get tokens:', error);
-      throw error;
-    }
+    // 返回模拟数据，用于前端展示
+    return [
+      {
+        symbol: 'ICP',
+        address: 'rrkah-fqaaa-aaaaa-aaaaq-cai',
+        balance: 10.5,
+      },
+      {
+        symbol: 'PPS',
+        address: 'mock-token-canister-id',
+        balance: 1000.0,
+      },
+    ];
   };
 
   return (
@@ -191,4 +144,4 @@ export const useWallet = () => {
     throw new Error('useWallet must be used within a WalletProvider');
   }
   return context;
-}; 
+};
